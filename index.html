@@ -1,0 +1,1406 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#0b1020" />
+  <title>HdytBlnApps — Uygulamalar, Destek ve app-ads.txt</title>
+
+  <meta name="description" content="HdytBlnApps: Geliştirdiğimiz uygulamaların tanıtımı, destek sayfaları ve app-ads.txt yayın alanı." />
+  <meta property="og:title" content="HdytBlnApps" />
+  <meta property="og:description" content="Uygulamalarımızı keşfedin. Destek alın. app-ads.txt içeriğine erişin." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="tr_TR" />
+  <meta name="robots" content="index,follow" />
+
+  <style>
+    :root{
+      --bg0:#070914;
+      --bg1:#0b1020;
+      --card:rgba(255,255,255,.06);
+      --card2:rgba(255,255,255,.09);
+      --stroke:rgba(255,255,255,.10);
+      --stroke2:rgba(255,255,255,.14);
+      --text:#eaf0ff;
+      --muted:rgba(234,240,255,.72);
+      --muted2:rgba(234,240,255,.58);
+      --brand1:#7c4dff;
+      --brand2:#00d4ff;
+      --brand3:#00ffa8;
+      --warn:#ffcc66;
+      --good:#22c55e;
+      --bad:#ef4444;
+      --shadow: 0 18px 55px rgba(0,0,0,.45);
+      --shadow2: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+      --radius2: 26px;
+      --max: 1160px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 15% 10%, rgba(124,77,255,.22), transparent 60%),
+        radial-gradient(900px 600px at 80% 15%, rgba(0,212,255,.18), transparent 55%),
+        radial-gradient(900px 600px at 60% 85%, rgba(0,255,168,.12), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
+    }
+
+    a{color:inherit; text-decoration:none}
+    button, input, textarea{font:inherit}
+
+    /* Subtle moving noise + grid */
+    .fx{
+      position:fixed; inset:0; pointer-events:none; z-index:0;
+      background:
+        linear-gradient(to right, rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: radial-gradient(900px 500px at 40% 20%, black 55%, transparent 80%);
+      opacity:.5;
+      transform:translateZ(0);
+      animation: drift 22s linear infinite;
+    }
+    @keyframes drift{
+      0%{transform:translate3d(0,0,0)}
+      50%{transform:translate3d(18px,10px,0)}
+      100%{transform:translate3d(0,0,0)}
+    }
+    .noise{
+      position:fixed; inset:-20%;
+      pointer-events:none; z-index:0;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.25'/%3E%3C/svg%3E");
+      opacity:.08;
+      transform:translateZ(0);
+      animation: noiseMove 12s linear infinite;
+    }
+    @keyframes noiseMove{
+      0%{transform:translate3d(0,0,0)}
+      100%{transform:translate3d(-6%,3%,0)}
+    }
+
+    .wrap{position:relative; z-index:1}
+    .container{max-width:var(--max); margin:0 auto; padding: 0 20px}
+
+    /* Topbar */
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(14px);
+      background: rgba(7,9,20,.56);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .topbar-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px; padding: 12px 0;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px; min-width: 210px;
+    }
+    .logo{
+      width:40px; height:40px; border-radius:14px;
+      background:
+        radial-gradient(16px 16px at 30% 30%, rgba(255,255,255,.75), transparent 60%),
+        linear-gradient(135deg, var(--brand1), var(--brand2));
+      box-shadow: 0 12px 26px rgba(124,77,255,.25);
+      position:relative;
+      overflow:hidden;
+    }
+    .logo:after{
+      content:"";
+      position:absolute; inset:-40%;
+      background: radial-gradient(circle at 30% 20%, rgba(255,255,255,.35), transparent 55%);
+      transform: rotate(18deg);
+    }
+    .brand h1{font-size:14px; margin:0; letter-spacing:.25px}
+    .brand .sub{font-size:12px; color:var(--muted2); margin-top:2px}
+
+    .nav{
+      display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 12px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.09);
+      background: rgba(255,255,255,.04);
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      white-space:nowrap;
+      cursor:pointer;
+      user-select:none;
+    }
+    .pill:hover{transform: translateY(-1px); background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.14)}
+    .pill.active{
+      background: linear-gradient(135deg, rgba(124,77,255,.25), rgba(0,212,255,.16));
+      border-color: rgba(124,77,255,.35);
+      box-shadow: 0 10px 28px rgba(124,77,255,.10);
+    }
+    .pill .dot{
+      width:8px; height:8px; border-radius:99px;
+      background: var(--brand2);
+      box-shadow: 0 0 0 4px rgba(0,212,255,.12);
+    }
+
+    .cta{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 14px;
+      border-radius: 12px;
+      border:1px solid rgba(255,255,255,.10);
+      background: linear-gradient(135deg, rgba(0,255,168,.16), rgba(0,212,255,.10));
+      box-shadow: var(--shadow2);
+      cursor:pointer;
+      transition: transform .15s ease, filter .15s ease;
+    }
+    .cta:hover{transform: translateY(-1px); filter: brightness(1.05)}
+    .cta small{color:var(--muted2)}
+
+    /* Hero */
+    .hero{padding: 26px 0 10px}
+    .hero-grid{
+      display:grid; gap:16px;
+      grid-template-columns: 1.2fr .8fr;
+      align-items:stretch;
+    }
+    @media (max-width: 980px){
+      .hero-grid{grid-template-columns: 1fr}
+      .brand{min-width:unset}
+    }
+
+    .hero-card{
+      border: 1px solid rgba(255,255,255,.10);
+      background:
+        radial-gradient(500px 220px at 20% 10%, rgba(124,77,255,.20), transparent 60%),
+        radial-gradient(450px 250px at 85% 15%, rgba(0,212,255,.16), transparent 55%),
+        rgba(255,255,255,.04);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      overflow:hidden;
+      position:relative;
+    }
+
+    .hero-card h2{
+      margin:0 0 10px;
+      font-size: 34px;
+      line-height: 1.12;
+      letter-spacing: -.2px;
+    }
+    .hero-card p{
+      margin:0 0 16px;
+      color:var(--muted);
+      max-width: 60ch;
+    }
+
+    .hero-actions{display:flex; gap:10px; flex-wrap:wrap; margin-top: 14px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding: 11px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      cursor:pointer;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      user-select:none;
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.18)}
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(124,77,255,.30), rgba(0,212,255,.16));
+      border-color: rgba(124,77,255,.40);
+    }
+    .btn.good{
+      background: linear-gradient(135deg, rgba(0,255,168,.22), rgba(0,212,255,.12));
+      border-color: rgba(0,255,168,.35);
+    }
+
+    .kpis{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+      margin-top:16px;
+    }
+    @media (max-width: 620px){
+      .kpis{grid-template-columns: 1fr}
+      .hero-card h2{font-size: 28px}
+    }
+    .kpi{
+      padding:14px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+    }
+    .kpi b{display:block; font-size:18px}
+    .kpi span{color:var(--muted2); font-size:12px}
+
+    .side-card{
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.035);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow2);
+      padding: 18px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .chiprow{display:flex; flex-wrap:wrap; gap:8px}
+    .chip{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+      font-size: 12px;
+      cursor:pointer;
+    }
+    .chip:hover{border-color: rgba(255,255,255,.16)}
+    .chip .mini{
+      width:6px; height:6px; border-radius: 99px;
+      background: var(--brand3);
+      box-shadow: 0 0 0 4px rgba(0,255,168,.10);
+    }
+
+    /* Main section header */
+    .section{padding: 16px 0 34px}
+    .section h3{margin:0 0 10px; font-size: 20px}
+    .section p{margin:0; color:var(--muted)}
+
+    /* Search + filters */
+    .toolbar{
+      margin-top: 14px;
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+      padding: 12px;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+    }
+    .field{
+      display:flex; align-items:center; gap:10px;
+      flex: 1 1 280px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+    }
+    .field input{
+      flex:1;
+      background:transparent;
+      border:0;
+      outline:none;
+      color:var(--text);
+    }
+    .select{
+      padding: 10px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      color:var(--text);
+      outline:none;
+      cursor:pointer;
+    }
+
+    /* App grid */
+    .grid{
+      margin-top: 14px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+    }
+    @media (max-width: 980px){ .grid{grid-template-columns: repeat(2, 1fr)} }
+    @media (max-width: 620px){ .grid{grid-template-columns: 1fr} }
+
+    .card{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      border-radius: 20px;
+      box-shadow: var(--shadow2);
+      padding: 14px;
+      overflow:hidden;
+      position:relative;
+      transition: transform .15s ease, border-color .15s ease, background .15s ease;
+      cursor:pointer;
+      min-height: 190px;
+    }
+    .card:hover{
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,.16);
+      background: rgba(255,255,255,.055);
+    }
+    .card-top{
+      display:flex; gap:12px; align-items:flex-start;
+    }
+    .appicon{
+      width:54px; height:54px; border-radius: 18px;
+      background: linear-gradient(135deg, rgba(124,77,255,.35), rgba(0,212,255,.16));
+      border:1px solid rgba(255,255,255,.12);
+      position:relative;
+      overflow:hidden;
+      flex: 0 0 auto;
+    }
+    .appicon:after{
+      content:"";
+      position:absolute; inset:-30%;
+      background: radial-gradient(circle at 30% 20%, rgba(255,255,255,.35), transparent 60%);
+      transform: rotate(18deg);
+    }
+    .card h4{margin:0; font-size: 16px}
+    .meta{margin-top:3px; color:var(--muted2); font-size:12px}
+    .badges{display:flex; flex-wrap:wrap; gap:7px; margin-top:10px}
+    .badge{
+      font-size: 11px;
+      padding: 6px 8px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.16);
+      color:var(--muted);
+    }
+    .badge.live{border-color: rgba(34,197,94,.35); background: rgba(34,197,94,.08); color: rgba(216,255,228,.92)}
+    .badge.dev{border-color: rgba(255,204,102,.35); background: rgba(255,204,102,.08); color: rgba(255,244,220,.92)}
+    .desc{margin: 10px 0 0; color: var(--muted); font-size: 13px; line-height: 1.4}
+    .card-bottom{
+      margin-top: 12px;
+      display:flex; justify-content:space-between; align-items:center;
+      gap:10px;
+    }
+    .miniBtn{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      font-size: 12px;
+    }
+    .miniBtn:hover{border-color: rgba(255,255,255,.16); background: rgba(255,255,255,.06)}
+    .price{
+      font-size:12px; color: var(--muted2);
+    }
+
+    /* Panels (router views) */
+    .view{display:none}
+    .view.active{display:block}
+
+    /* app-ads */
+    .adsWrap{
+      margin-top: 14px;
+      border-radius: 22px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      overflow:hidden;
+      box-shadow: var(--shadow2);
+    }
+    .adsHead{
+      padding: 14px;
+      display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      background: radial-gradient(500px 260px at 10% 10%, rgba(0,212,255,.12), transparent 55%);
+    }
+    .adsHead b{font-size: 14px}
+    .adsHead span{color: var(--muted2); font-size: 12px}
+    pre{
+      margin:0;
+      padding: 14px;
+      color: rgba(234,240,255,.90);
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.55;
+      overflow:auto;
+      background: rgba(0,0,0,.22);
+    }
+    .toast{
+      position: fixed; left:50%; bottom: 18px; transform: translateX(-50%);
+      background: rgba(0,0,0,.55);
+      border:1px solid rgba(255,255,255,.12);
+      padding: 10px 12px;
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+      color: var(--text);
+      box-shadow: var(--shadow2);
+      opacity:0; pointer-events:none;
+      transition: opacity .18s ease, transform .18s ease;
+      z-index: 999;
+    }
+    .toast.show{opacity:1; transform: translateX(-50%) translateY(-4px)}
+
+    /* Modal */
+    .modal-backdrop{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.62);
+      backdrop-filter: blur(10px);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      z-index: 200;
+    }
+    .modal-backdrop.show{display:flex}
+    .modal{
+      width:min(960px, 100%);
+      border-radius: 22px;
+      border:1px solid rgba(255,255,255,.12);
+      background:
+        radial-gradient(600px 320px at 20% 0%, rgba(124,77,255,.22), transparent 60%),
+        radial-gradient(560px 340px at 80% 0%, rgba(0,212,255,.16), transparent 55%),
+        rgba(10,14,30,.86);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .modalHead{
+      padding: 14px 14px 12px;
+      display:flex; justify-content:space-between; align-items:center; gap:10px;
+      border-bottom: 1px solid rgba(255,255,255,.10);
+    }
+    .modalHead .left{
+      display:flex; gap:12px; align-items:center;
+    }
+    .modalHead h4{margin:0; font-size: 16px}
+    .close{
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      border-radius: 12px;
+      padding: 10px 12px;
+      cursor:pointer;
+    }
+    .close:hover{background: rgba(255,255,255,.06)}
+    .modalBody{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      padding: 14px;
+    }
+    @media (max-width: 860px){
+      .modalBody{grid-template-columns: 1fr}
+    }
+    .shots{
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      overflow:hidden;
+      min-height: 260px;
+      display:flex; flex-direction:column;
+    }
+    .shotCanvas{
+      flex:1;
+      position:relative;
+      background: radial-gradient(700px 400px at 30% 10%, rgba(255,255,255,.10), transparent 55%),
+                  linear-gradient(135deg, rgba(124,77,255,.18), rgba(0,212,255,.10));
+      display:flex; align-items:center; justify-content:center;
+      padding: 18px;
+    }
+    .mock{
+      width: min(340px, 92%);
+      aspect-ratio: 9 / 19.5;
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.22);
+      box-shadow: 0 25px 70px rgba(0,0,0,.35);
+      position:relative;
+      overflow:hidden;
+    }
+    .mock:before{
+      content:"";
+      position:absolute; inset:-40%;
+      background: radial-gradient(circle at 20% 10%, rgba(255,255,255,.25), transparent 60%);
+      transform: rotate(18deg);
+    }
+    .mockInner{
+      position:absolute; inset: 10px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.10);
+      overflow:hidden;
+      display:flex; flex-direction:column;
+    }
+    .mockTop{
+      height: 46px;
+      background: rgba(255,255,255,.05);
+      border-bottom:1px solid rgba(255,255,255,.08);
+      display:flex; align-items:center; justify-content:center;
+      color: rgba(234,240,255,.86);
+      font-size: 12px;
+    }
+    .mockContent{
+      flex:1;
+      padding: 12px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .mockBlock{
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      padding: 10px;
+      min-height: 44px;
+    }
+    .shotNav{
+      padding: 10px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      display:flex; justify-content:space-between; align-items:center;
+    }
+    .shotNav .dots{display:flex; gap:7px}
+    .shotNav .dots i{
+      width: 8px; height: 8px; border-radius: 99px;
+      background: rgba(234,240,255,.25);
+    }
+    .shotNav .dots i.on{background: rgba(0,212,255,.85); box-shadow: 0 0 0 4px rgba(0,212,255,.12)}
+    .details{
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      padding: 12px;
+      display:flex; flex-direction:column; gap:10px;
+    }
+    .details .row{
+      display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
+      color: var(--muted);
+      font-size: 13px;
+      border-bottom: 1px dashed rgba(255,255,255,.10);
+      padding-bottom: 10px;
+    }
+    .details .row:last-child{border-bottom:0; padding-bottom:0}
+    .details .row b{color: var(--text); font-weight: 600}
+    .footer{
+      padding: 22px 0 26px;
+      border-top: 1px solid rgba(255,255,255,.06);
+      color: var(--muted2);
+      font-size: 12px;
+    }
+    .footer .cols{
+      display:flex; gap:12px; justify-content:space-between; align-items:flex-start; flex-wrap:wrap;
+    }
+    .muted{color: var(--muted2)}
+    .hr{
+      height:1px;
+      background: rgba(255,255,255,.08);
+      margin: 14px 0;
+    }
+    .faq{
+      margin-top:14px;
+      border-radius: 22px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      overflow:hidden;
+      box-shadow: var(--shadow2);
+    }
+    .qa{
+      padding: 14px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      cursor:pointer;
+    }
+    .qa:first-child{border-top:0}
+    .qa h5{margin:0; font-size: 14px}
+    .qa p{margin:8px 0 0; color: var(--muted); display:none}
+    .qa.open p{display:block}
+  </style>
+</head>
+
+<body>
+  <div class="fx"></div>
+  <div class="noise"></div>
+
+  <div class="wrap">
+    <div class="topbar">
+      <div class="container">
+        <div class="topbar-inner">
+          <div class="brand" role="banner">
+            <div class="logo" aria-hidden="true"></div>
+            <div>
+              <h1>HdytBlnApps</h1>
+              <div class="sub">Uygulamalar • Destek • app-ads.txt</div>
+            </div>
+          </div>
+
+          <nav class="nav" aria-label="Ana Menü">
+            <a class="pill" data-route="#home" href="#home"><span class="dot"></span> Ana</a>
+            <a class="pill" data-route="#apps" href="#apps"><span class="dot"></span> Uygulamalar</a>
+            <a class="pill" data-route="#appads" href="#appads"><span class="dot"></span> app-ads.txt</a>
+            <a class="pill" data-route="#support" href="#support"><span class="dot"></span> Destek</a>
+            <button class="cta" id="btnQuickContact" type="button" title="Hızlı iletişim">
+              <span>İletişim</span>
+              <small class="muted">Tek tık</small>
+            </button>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <header class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <section class="hero-card" aria-label="Tanıtım">
+            <h2>Tek çatı altında: uygulamalarımız, destek sayfaları ve reklam doğrulama dosyası.</h2>
+            <p>
+              HdytBlnApps, geliştirdiğimiz ürünleri net biçimde tanıtır; kullanıcıya hızlı destek sağlar
+              ve <span class="muted">app-ads.txt</span> içeriğini şeffaf biçimde yayınlar.
+            </p>
+
+            <div class="hero-actions">
+              <a class="btn primary" href="#apps">Uygulamaları keşfet</a>
+              <a class="btn good" href="#appads">app-ads.txt görüntüle</a>
+              <button class="btn" type="button" id="btnRandom">Rastgele uygulama</button>
+            </div>
+
+            <div class="kpis" id="kpis"></div>
+          </section>
+
+          <aside class="side-card" aria-label="Hızlı erişim">
+            <div>
+              <b>Hızlı filtreler</b>
+              <div class="muted" style="margin-top:6px; font-size:12px;">
+                Aşağıdan kategoriyi seç; uygulama listesi anında güncellensin.
+              </div>
+            </div>
+
+            <div class="chiprow" id="quickChips"></div>
+
+            <div class="hr"></div>
+
+            <div>
+              <b>Yayın notu</b>
+              <div class="muted" style="margin-top:6px; font-size:12px;">
+                app-ads.txt için ideal kurulum: kök dizinde <span style="font-family:var(--mono)">/app-ads.txt</span> dosyası.
+                Bu sayfa içeriği ayrıca gösterir ve indirir.
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </header>
+
+    <main class="section">
+      <div class="container">
+
+        <!-- HOME VIEW -->
+        <section class="view" id="view-home" aria-label="Ana görünüm">
+          <h3>Genel Bakış</h3>
+          <p>Ürün vitrini + teknik doğrulama (app-ads.txt) + destek akışı: hepsi tek sayfada.</p>
+
+          <div class="faq" role="list">
+            <div class="qa" role="listitem">
+              <h5>Bu siteyi ne için kullanacağız?</h5>
+              <p>
+                Uygulamalarınızı profesyonel bir vitrinle göstermek, kullanıcıyı doğru destek kanalına yönlendirmek
+                ve reklam ağları için app-ads.txt içeriğini yayınlamak.
+              </p>
+            </div>
+            <div class="qa" role="listitem">
+              <h5>Tek dosya olması ne kazandırır?</h5>
+              <p>
+                Kurulum basit olur: hosting’e tek bir <span style="font-family:var(--mono)">index.html</span> yükle.
+                İçerikleri JS tarafında yönetirsin.
+              </p>
+            </div>
+            <div class="qa" role="listitem">
+              <h5>app-ads.txt burada görünüyorsa yeterli mi?</h5>
+              <p>
+                Genelde reklam ağları <span style="font-family:var(--mono)">https://domain.com/app-ads.txt</span> adresinde düz dosya bekler.
+                Bu sayfa içeriği gösterir; ayrıca indirip köke koyman gerekebilir.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- APPS VIEW -->
+        <section class="view" id="view-apps" aria-label="Uygulamalar">
+          <h3>Uygulamalar</h3>
+          <p>Arayın, filtreleyin, detayları açın. İçerikler tek bir JS listesiyle yönetilir.</p>
+
+          <div class="toolbar" role="region" aria-label="Arama ve filtre">
+            <div class="field" title="Ara">
+              <span aria-hidden="true">🔎</span>
+              <input id="search" placeholder="Uygulama adı / etiket / özellik ara..." autocomplete="off" />
+            </div>
+            <select class="select" id="platform">
+              <option value="all">Tüm platformlar</option>
+              <option value="iOS">iOS</option>
+              <option value="iPadOS">iPadOS</option>
+              <option value="macOS">macOS</option>
+              <option value="Web">Web</option>
+            </select>
+            <select class="select" id="status">
+              <option value="all">Tüm durumlar</option>
+              <option value="live">Yayında</option>
+              <option value="dev">Geliştirme</option>
+            </select>
+            <select class="select" id="sort">
+              <option value="featured">Öne çıkan</option>
+              <option value="az">A → Z</option>
+              <option value="newest">En yeni</option>
+            </select>
+            <button class="btn" type="button" id="btnReset">Sıfırla</button>
+          </div>
+
+          <div class="grid" id="appGrid" aria-live="polite"></div>
+        </section>
+
+        <!-- APP-ADS VIEW -->
+        <section class="view" id="view-appads" aria-label="app-ads.txt">
+          <h3>app-ads.txt</h3>
+          <p>
+            Buradaki içerik, reklam doğrulama için kullanılan kayıttır. Aşağıdan kopyalayabilir veya
+            tarayıcıdan <span style="font-family:var(--mono)">app-ads.txt</span> olarak indirebilirsiniz.
+          </p>
+
+          <div class="adsWrap">
+            <div class="adsHead">
+              <div>
+                <b>HdytBlnApps — app-ads.txt</b><br/>
+                <span class="muted">Son güncelleme: <span id="adsUpdated">—</span></span>
+              </div>
+              <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                <button class="btn" type="button" id="btnCopyAds">Kopyala</button>
+                <button class="btn primary" type="button" id="btnDownloadAds">app-ads.txt indir</button>
+              </div>
+            </div>
+            <pre id="adsPre"></pre>
+          </div>
+
+          <div class="faq" style="margin-top:14px;">
+            <div class="qa open">
+              <h5>Kurulum notu</h5>
+              <p>
+                Reklam ağları çoğu zaman bu dosyayı kök dizinde ister:
+                <span style="font-family:var(--mono)">https://SENIN-DOMAININ.com/app-ads.txt</span>.
+                Eğer hosting’in statik dosya sunuyorsa, indirip köke yüklemek genelde en hızlı yoldur.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- SUPPORT VIEW -->
+        <section class="view" id="view-support" aria-label="Destek">
+          <h3>Destek</h3>
+          <p>Uygulama seçin, sık sorulanlar ve iletişim kanalı üzerinden hızlı aksiyon alın.</p>
+
+          <div class="toolbar" style="align-items:flex-start">
+            <div style="flex: 1 1 320px">
+              <div class="field" style="margin-bottom:10px">
+                <span aria-hidden="true">🧩</span>
+                <input id="supportSearch" placeholder="Destek: konu ara (ör. abonelik, reklam, yedekleme)..." autocomplete="off" />
+              </div>
+
+              <div class="faq" id="supportFaq"></div>
+            </div>
+
+            <div style="flex: 1 1 280px">
+              <div class="side-card">
+                <div>
+                  <b>Hızlı iletişim</b>
+                  <div class="muted" style="margin-top:6px; font-size:12px;">
+                    Aşağıdaki bilgileri kendi e-posta / form / sosyal linklerinle değiştir.
+                  </div>
+                </div>
+
+                <div class="chiprow">
+                  <a class="chip" id="mailLink" href="mailto:support@hdytblnapps.example?subject=HdytBlnApps%20Destek">
+                    <span class="mini"></span> support@hdytblnapps.example
+                  </a>
+                  <a class="chip" id="siteLink" href="#apps"><span class="mini"></span> Uygulamalar sayfası</a>
+                  <a class="chip" id="policyLink" href="#support"><span class="mini"></span> Gizlilik / Politika</a>
+                </div>
+
+                <div class="hr"></div>
+
+                <div>
+                  <b>Destek paketi</b>
+                  <div class="muted" style="margin-top:6px; font-size:12px;">
+                    Sorunu hızlandırmak için: Uygulama adı, sürüm, cihaz modeli, iOS/macOS sürümü, ekran görüntüsü/log.
+                  </div>
+                </div>
+
+                <button class="btn primary" id="btnCopySupportTemplate" type="button">Destek şablonunu kopyala</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="cols">
+          <div>
+            <b>HdytBlnApps</b><br/>
+            <span class="muted">Tek sayfa vitrin • app-ads.txt • destek</span>
+          </div>
+          <div class="muted">
+            <div>© <span id="year"></span> HdytBlnApps</div>
+            <div>Build: <span id="buildId"></span></div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal-backdrop" id="backdrop" aria-hidden="true">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modalHead">
+          <div class="left">
+            <div class="appicon" id="modalIcon" aria-hidden="true"></div>
+            <div>
+              <h4 id="modalTitle">—</h4>
+              <div class="meta" id="modalMeta">—</div>
+            </div>
+          </div>
+          <button class="close" id="btnClose" type="button">Kapat</button>
+        </div>
+
+        <div class="modalBody">
+          <div class="shots">
+            <div class="shotCanvas">
+              <div class="mock" aria-label="Uygulama ekran görüntüsü temsili">
+                <div class="mockInner">
+                  <div class="mockTop" id="mockTop">HdytBlnApps</div>
+                  <div class="mockContent" id="mockContent"></div>
+                </div>
+              </div>
+            </div>
+            <div class="shotNav">
+              <button class="miniBtn" id="prevShot" type="button">← Önceki</button>
+              <div class="dots" id="shotDots" aria-label="Slayt noktaları"></div>
+              <button class="miniBtn" id="nextShot" type="button">Sonraki →</button>
+            </div>
+          </div>
+
+          <div class="details">
+            <div class="row"><span>Durum</span><b id="dStatus">—</b></div>
+            <div class="row"><span>Platform</span><b id="dPlatform">—</b></div>
+            <div class="row"><span>Kategori</span><b id="dCategory">—</b></div>
+            <div class="row"><span>Fiyatlandırma</span><b id="dPricing">—</b></div>
+            <div class="row"><span>Kısa açıklama</span><b id="dTagline">—</b></div>
+
+            <div class="badges" id="dTags"></div>
+
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top: 6px;">
+              <a class="btn primary" id="btnStore" href="#" target="_blank" rel="noopener">Store linki</a>
+              <a class="btn" id="btnLearn" href="#" target="_blank" rel="noopener">Ürün sayfası</a>
+            </div>
+
+            <div class="muted" style="font-size:12px; margin-top:6px;">
+              Not: Store/URL alanlarını kendi gerçek linklerinle değiştir.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast">—</div>
+  </div>
+
+  <script>
+    // ==========================
+    // 1) VERİ MODELİ (DİNAMİK)
+    // ==========================
+    // Burayı kendi uygulamalarınla güncelle. Her şey buradan besleniyor.
+    const APPS = [
+      {
+        id: "mywarranty",
+        name: "MyWarranty",
+        tagline: "Garanti ve servis takibini tek yerde topla",
+        status: "live", // live | dev
+        category: "Utilities",
+        platform: ["iOS","iPadOS"],
+        pricing: "Freemium (Reklam + Premium)",
+        featured: true,
+        createdAt: "2025-10-12",
+        tags: ["Warranty", "Service", "PDF", "Tracker"],
+        storeUrl: "https://example.com/store/mywarranty",
+        productUrl: "https://example.com/mywarranty",
+        mockScreens: [
+          { title: "Dashboard", blocks: ["Ürünler", "Garanti süresi", "Servis kayıtları"] },
+          { title: "Ürün Detayı", blocks: ["Fatura", "Satın alma", "Hatırlatıcı"] },
+          { title: "Raporlar", blocks: ["Toplam ürün", "Süre bitişleri", "PDF çıktı"] }
+        ]
+      },
+      {
+        id: "pdftoolbox",
+        name: "PDF ToolBox",
+        tagline: "Birleştir, sıkıştır, dönüştür: hızlı PDF araçları",
+        status: "dev",
+        category: "Productivity",
+        platform: ["iOS","iPadOS","macOS"],
+        pricing: "Subscription (Aylık/Yıllık)",
+        featured: true,
+        createdAt: "2025-09-04",
+        tags: ["Merge", "Compress", "Scan", "Convert"],
+        storeUrl: "https://example.com/store/pdftoolbox",
+        productUrl: "https://example.com/pdftoolbox",
+        mockScreens: [
+          { title: "Araçlar", blocks: ["Birleştir", "Sıkıştır", "Tarayıcıdan PDF"] },
+          { title: "Önizleme", blocks: ["Sayfa seç", "Sıralama", "Paylaş"] },
+          { title: "Premium", blocks: ["Limitsiz kullanım", "Reklamsız", "Hızlı işleme"] }
+        ]
+      },
+      {
+        id: "financefab",
+        name: "FinanceFab",
+        tagline: "Kişisel/iş finansını modüler biçimde yönet",
+        status: "dev",
+        category: "Finance",
+        platform: ["iOS","iPadOS"],
+        pricing: "Freemium (Modül bazlı)",
+        featured: false,
+        createdAt: "2025-08-21",
+        tags: ["Budget", "Stocks", "Invoices", "Analytics"],
+        storeUrl: "https://example.com/store/financefab",
+        productUrl: "https://example.com/financefab",
+        mockScreens: [
+          { title: "Özet", blocks: ["Nakit akışı", "Bütçe", "Hedefler"] },
+          { title: "Modüller", blocks: ["Gelir/Gider", "Hisse", "Rapor"] },
+          { title: "Analiz", blocks: ["Grafikler", "Kategoriler", "Trend"] }
+        ]
+      },
+      {
+        id: "babycare",
+        name: "Babycare",
+        tagline: "Bebek takibi ve içerik: pratik, güvenli, hızlı",
+        status: "dev",
+        category: "Lifestyle",
+        platform: ["iOS","iPadOS"],
+        pricing: "Freemium",
+        featured: false,
+        createdAt: "2025-07-11",
+        tags: ["Feeding", "Sleep", "Growth", "Recipes"],
+        storeUrl: "https://example.com/store/babycare",
+        productUrl: "https://example.com/babycare",
+        mockScreens: [
+          { title: "Günlük", blocks: ["Beslenme", "Uyku", "Notlar"] },
+          { title: "Takip", blocks: ["Boy/Kilo", "Grafik", "Hatırlatıcı"] },
+          { title: "Tarifler", blocks: ["Yaşa göre", "Filtre", "Favoriler"] }
+        ]
+      }
+    ];
+
+    // app-ads.txt örnek içeriği (kendi reklam ağlarındaki satırlarla değiştir)
+    // Format: domain, publisher_id, relationship, cert_authority_id
+    // Örnekleri kaldırıp gerçek satırları ekle.
+    const APP_ADS_TXT = `
+google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
+google.com, pub-0000000000000000, RESELLER, f08c47fec0942fa0
+appnexus.com, 0000, RESELLER, f5ab79cb980f11d1
+`.trim();
+
+    // ==========================
+    // 2) HELPERS
+    // ==========================
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+    const byId = (id) => APPS.find(a => a.id === id);
+
+    function toast(msg){
+      const t = $("#toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      clearTimeout(toast._tm);
+      toast._tm = setTimeout(() => t.classList.remove("show"), 1700);
+    }
+
+    function normalize(s){
+      return (s || "").toString().toLowerCase()
+        .replaceAll("ı","i").replaceAll("İ","i")
+        .replaceAll("ğ","g").replaceAll("ü","u")
+        .replaceAll("ş","s").replaceAll("ö","o").replaceAll("ç","c");
+    }
+
+    // ==========================
+    // 3) ROUTER
+    // ==========================
+    const ROUTES = ["home","apps","appads","support"];
+    function setRoute(hash){
+      const route = (hash || "#home").replace("#","");
+      const real = ROUTES.includes(route) ? route : "home";
+
+      // active nav
+      $$(".pill").forEach(p => p.classList.toggle("active", p.dataset.route === "#" + real));
+
+      // active view
+      ROUTES.forEach(r => {
+        $("#view-" + r).classList.toggle("active", r === real);
+      });
+
+      // small focus behavior
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    window.addEventListener("hashchange", () => setRoute(location.hash));
+
+    // ==========================
+    // 4) RENDER - HERO KPIs + Chips
+    // ==========================
+    function renderKpis(){
+      const total = APPS.length;
+      const live = APPS.filter(a => a.status === "live").length;
+      const platforms = [...new Set(APPS.flatMap(a => a.platform))].length;
+
+      const el = $("#kpis");
+      el.innerHTML = `
+        <div class="kpi"><b>${total}</b><span>Toplam ürün</span></div>
+        <div class="kpi"><b>${live}</b><span>Yayında</span></div>
+        <div class="kpi"><b>${platforms}</b><span>Platform kapsamı</span></div>
+      `;
+    }
+
+    function renderQuickChips(){
+      const cats = [...new Set(APPS.map(a => a.category))].sort();
+      const el = $("#quickChips");
+      el.innerHTML = `
+        <span class="chip" data-chip="all"><span class="mini"></span>Hepsi</span>
+        ${cats.map(c => `<span class="chip" data-chip="${c}"><span class="mini"></span>${c}</span>`).join("")}
+      `;
+      $$(".chip", el).forEach(ch => {
+        ch.addEventListener("click", () => {
+          location.hash = "#apps";
+          $("#search").value = "";
+          $("#platform").value = "all";
+          $("#status").value = "all";
+          $("#sort").value = "featured";
+          renderApps({ category: ch.dataset.chip === "all" ? null : ch.dataset.chip });
+        });
+      });
+    }
+
+    // ==========================
+    // 5) RENDER - APPS
+    // ==========================
+    function getFilteredApps(extra = {}){
+      const q = normalize($("#search").value);
+      const platform = $("#platform").value;
+      const status = $("#status").value;
+      const sort = $("#sort").value;
+      const category = extra.category || null;
+
+      let list = APPS.slice();
+
+      if (category){
+        list = list.filter(a => a.category === category);
+      }
+
+      if (platform !== "all"){
+        list = list.filter(a => a.platform.includes(platform));
+      }
+
+      if (status !== "all"){
+        list = list.filter(a => a.status === status);
+      }
+
+      if (q){
+        list = list.filter(a => {
+          const hay = normalize([
+            a.name, a.tagline, a.category, a.pricing,
+            a.platform.join(" "), a.tags.join(" ")
+          ].join(" | "));
+          return hay.includes(q);
+        });
+      }
+
+      if (sort === "az"){
+        list.sort((a,b) => a.name.localeCompare(b.name, "tr"));
+      } else if (sort === "newest"){
+        list.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt));
+      } else {
+        // featured first, then live, then name
+        list.sort((a,b) => {
+          const fa = a.featured ? 1 : 0, fb = b.featured ? 1 : 0;
+          if (fb !== fa) return fb - fa;
+          const la = a.status === "live" ? 1 : 0, lb = b.status === "live" ? 1 : 0;
+          if (lb !== la) return lb - la;
+          return a.name.localeCompare(b.name, "tr");
+        });
+      }
+
+      return list;
+    }
+
+    function renderApps(extra = {}){
+      const list = getFilteredApps(extra);
+      const grid = $("#appGrid");
+
+      if (!list.length){
+        grid.innerHTML = `
+          <div class="card" style="grid-column: 1/-1; cursor:default;">
+            <div class="card-top">
+              <div class="appicon" aria-hidden="true"></div>
+              <div>
+                <h4>Sonuç bulunamadı</h4>
+                <div class="meta">Filtreleri gevşetin veya arama metnini değiştirin.</div>
+              </div>
+            </div>
+            <p class="desc">İpucu: “PDF”, “reklam”, “abonelik” gibi anahtar kelimeler deneyin.</p>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = list.map(app => {
+        const statClass = app.status === "live" ? "live" : "dev";
+        const statLabel = app.status === "live" ? "Yayında" : "Geliştirme";
+        const platformLabel = app.platform.join(" • ");
+
+        return `
+          <article class="card" data-app="${app.id}" title="Detayları aç">
+            <div class="card-top">
+              <div class="appicon" aria-hidden="true"></div>
+              <div style="min-width:0">
+                <h4>${escapeHtml(app.name)}</h4>
+                <div class="meta">${escapeHtml(platformLabel)} • ${escapeHtml(app.category)}</div>
+                <div class="badges">
+                  <span class="badge ${statClass}">${statLabel}</span>
+                  <span class="badge">${escapeHtml(app.pricing)}</span>
+                  ${app.featured ? `<span class="badge">Öne çıkan</span>` : ``}
+                </div>
+              </div>
+            </div>
+            <p class="desc">${escapeHtml(app.tagline)}</p>
+            <div class="card-bottom">
+              <span class="price">Başlangıç: ${escapeHtml(app.createdAt)}</span>
+              <span class="miniBtn">Detay →</span>
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      $$(".card", grid).forEach(c => c.addEventListener("click", () => openModal(c.dataset.app)));
+    }
+
+    function escapeHtml(str){
+      return (str ?? "").toString()
+        .replaceAll("&","&amp;").replaceAll("<","&lt;")
+        .replaceAll(">","&gt;").replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    // ==========================
+    // 6) MODAL + MOCK SLIDER
+    // ==========================
+    let currentApp = null;
+    let shotIndex = 0;
+
+    function openModal(appId){
+      const app = byId(appId);
+      if (!app) return;
+
+      currentApp = app;
+      shotIndex = 0;
+
+      $("#modalTitle").textContent = app.name;
+      $("#modalMeta").textContent = `${app.platform.join(" • ")} • ${app.category} • ${app.createdAt}`;
+      $("#dStatus").textContent = app.status === "live" ? "Yayında" : "Geliştirme";
+      $("#dPlatform").textContent = app.platform.join(", ");
+      $("#dCategory").textContent = app.category;
+      $("#dPricing").textContent = app.pricing;
+      $("#dTagline").textContent = app.tagline;
+
+      $("#dTags").innerHTML = app.tags.map(t => `<span class="badge">${escapeHtml(t)}</span>`).join("");
+
+      const store = $("#btnStore");
+      const learn = $("#btnLearn");
+
+      store.href = app.storeUrl || "#";
+      learn.href = app.productUrl || "#";
+      store.style.pointerEvents = app.storeUrl ? "auto" : "none";
+      learn.style.pointerEvents = app.productUrl ? "auto" : "none";
+      store.style.opacity = app.storeUrl ? 1 : .55;
+      learn.style.opacity = app.productUrl ? 1 : .55;
+
+      renderShot();
+
+      $("#backdrop").classList.add("show");
+      $("#backdrop").setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeModal(){
+      $("#backdrop").classList.remove("show");
+      $("#backdrop").setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      currentApp = null;
+    }
+
+    function renderShot(){
+      if (!currentApp) return;
+      const shots = currentApp.mockScreens || [];
+      if (!shots.length) return;
+
+      const s = shots[shotIndex % shots.length];
+      $("#mockTop").textContent = s.title || currentApp.name;
+
+      const blocks = (s.blocks || []).slice(0, 6);
+      $("#mockContent").innerHTML = blocks.map(b => `<div class="mockBlock">${escapeHtml(b)}</div>`).join("");
+
+      // dots
+      const dots = $("#shotDots");
+      dots.innerHTML = shots.map((_, i) => `<i class="${i===shotIndex ? "on" : ""}"></i>`).join("");
+    }
+
+    // ==========================
+    // 7) APP-ADS
+    // ==========================
+    function renderAds(){
+      $("#adsPre").textContent = APP_ADS_TXT + "\n";
+      $("#adsUpdated").textContent = new Date().toLocaleString("tr-TR");
+    }
+
+    async function copyAds(){
+      try{
+        await navigator.clipboard.writeText(APP_ADS_TXT + "\n");
+        toast("app-ads.txt kopyalandı");
+      }catch{
+        toast("Kopyalama engellendi (tarayıcı izinleri).");
+      }
+    }
+
+    function downloadAds(){
+      const blob = new Blob([APP_ADS_TXT + "\n"], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "app-ads.txt";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      toast("app-ads.txt indirildi");
+    }
+
+    // ==========================
+    // 8) SUPPORT FAQ
+    // ==========================
+    const SUPPORT_FAQ = [
+      { q: "Premium / abonelik satın aldım ama açılmıyor.", a: "Uygulama içinde “Restore Purchases / Satın Alımları Geri Yükle” adımını deneyin. Apple ID ile aynı hesapta olduğunuzdan emin olun. Devam ederse destek mailine cihaz/OS/sürüm bilgisi gönderin.", tags:["abonelik","premium","restore","iap"] },
+      { q: "Reklamlar fazla görünüyor / yanlış yerde çıkıyor.", a: "Reklam sıklığını azaltmak için premium seçenek sunabilirsiniz. Reklam yerleşiminde kullanıcı akışını bozmayan “doğal duraklar” seçin. AdMob policy uyumluluğunu kontrol edin.", tags:["reklam","admob","policy"] },
+      { q: "Verilerim kayboldu, geri getirebilir miyim?", a: "Eğer iCloud/yerel yedekleme kullanıyorsanız geri dönüş mümkün olabilir. Uygulamanızda dışa aktarma (JSON/PDF) gibi opsiyonlar eklemek iyi pratik.", tags:["yedekleme","icloud","veri"] },
+      { q: "app-ads.txt doğrulanmıyor.", a: "Dosyanın kök dizinde ve düz metin olarak yayınlandığından emin olun: https://domain.com/app-ads.txt. DNS/SSL yönlendirme ve cache gecikmeleri 24-48 saat etkileyebilir.", tags:["app-ads","adstxt","doğrulama"] },
+      { q: "Uygulama öneri/geri bildirim göndermek istiyorum.", a: "Destek şablonunu kullanın ve uygulama adı + sürüm + ekran görüntüsü ekleyin. Özelliğin hangi kullanıcı problemine çözüm olduğu net olursa önceliklendirmek kolaylaşır.", tags:["öneri","feedback"] }
+    ];
+
+    function renderSupportFaq(){
+      const q = normalize($("#supportSearch").value);
+      const list = SUPPORT_FAQ.filter(x => {
+        if (!q) return true;
+        const hay = normalize(x.q + " " + x.a + " " + (x.tags||[]).join(" "));
+        return hay.includes(q);
+      });
+
+      const el = $("#supportFaq");
+      el.innerHTML = list.map((x,i) => `
+        <div class="qa ${i===0 ? "open" : ""}">
+          <h5>${escapeHtml(x.q)}</h5>
+          <p>${escapeHtml(x.a)}</p>
+        </div>
+      `).join("");
+
+      $$(".qa", el).forEach(item => item.addEventListener("click", () => item.classList.toggle("open")));
+    }
+
+    async function copySupportTemplate(){
+      const tmpl =
+`Merhaba HdytBlnApps Destek,
+
+Uygulama:
+Sürüm:
+Cihaz modeli:
+iOS/iPadOS/macOS sürümü:
+Sorun özeti:
+Tekrarlama adımları:
+Ekran görüntüsü / log:
+
+Teşekkürler.`;
+
+      try{
+        await navigator.clipboard.writeText(tmpl);
+        toast("Destek şablonu kopyalandı");
+      }catch{
+        toast("Kopyalama engellendi (tarayıcı izinleri).");
+      }
+    }
+
+    // ==========================
+    // 9) EVENTS + INIT
+    // ==========================
+    function bind(){
+      // nav quick contact
+      $("#btnQuickContact").addEventListener("click", () => {
+        location.hash = "#support";
+        toast("Destek bölümüne yönlendirildi");
+      });
+
+      // hero random
+      $("#btnRandom").addEventListener("click", () => {
+        location.hash = "#apps";
+        const pick = APPS[Math.floor(Math.random() * APPS.length)];
+        setTimeout(() => openModal(pick.id), 160);
+      });
+
+      // apps filters
+      ["search","platform","status","sort"].forEach(id => {
+        $("#" + id).addEventListener("input", () => renderApps());
+        $("#" + id).addEventListener("change", () => renderApps());
+      });
+      $("#btnReset").addEventListener("click", () => {
+        $("#search").value = "";
+        $("#platform").value = "all";
+        $("#status").value = "all";
+        $("#sort").value = "featured";
+        renderApps();
+        toast("Filtreler sıfırlandı");
+      });
+
+      // modal
+      $("#btnClose").addEventListener("click", closeModal);
+      $("#backdrop").addEventListener("click", (e) => {
+        if (e.target === $("#backdrop")) closeModal();
+      });
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeModal();
+        if (!currentApp) return;
+        if (e.key === "ArrowLeft") { shotIndex = Math.max(0, shotIndex - 1); renderShot(); }
+        if (e.key === "ArrowRight") {
+          const max = (currentApp.mockScreens||[]).length - 1;
+          shotIndex = Math.min(max, shotIndex + 1);
+          renderShot();
+        }
+      });
+      $("#prevShot").addEventListener("click", () => { shotIndex = Math.max(0, shotIndex - 1); renderShot(); });
+      $("#nextShot").addEventListener("click", () => {
+        const max = (currentApp.mockScreens||[]).length - 1;
+        shotIndex = Math.min(max, shotIndex + 1);
+        renderShot();
+      });
+
+      // ads
+      $("#btnCopyAds").addEventListener("click", copyAds);
+      $("#btnDownloadAds").addEventListener("click", downloadAds);
+
+      // home faq toggles
+      $$("#view-home .qa").forEach(item => item.addEventListener("click", () => item.classList.toggle("open")));
+
+      // support
+      $("#supportSearch").addEventListener("input", renderSupportFaq);
+      $("#btnCopySupportTemplate").addEventListener("click", copySupportTemplate);
+    }
+
+    function init(){
+      $("#year").textContent = new Date().getFullYear();
+      $("#buildId").textContent = Math.random().toString(16).slice(2,8).toUpperCase();
+
+      renderKpis();
+      renderQuickChips();
+      renderApps();
+      renderAds();
+      renderSupportFaq();
+
+      bind();
+      setRoute(location.hash || "#home");
+    }
+
+    init();
+  </script>
+</body>
+</html>
